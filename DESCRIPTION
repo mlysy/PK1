@@ -1,0 +1,17 @@
+Package: PK1
+Type: Package
+Title: Mixed Effect SDE Inference for the One-Compartment Pharmacodynamic Model.
+Version: 0.0.0.9010
+Date: 2016-06-10
+Author: Martin Lysy
+Maintainer: Martin Lysy <mlysy@uwaterloo.ca>
+Description: Simulation and inference for the PK1 model featuring Fixed/Mixed
+    effects, SDE/ODE implementations, and potentially include measurement error.
+License: GPL (>= 2)
+Imports:
+    Rcpp (>= 0.12.2)
+LinkingTo:
+    Rcpp
+Depends:
+    rstan
+RoxygenNote: 5.0.1
