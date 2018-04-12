@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////
 //
 // Inference for the 1-compartment PK model
-// krai, jdubin, mlysy 2015
+// mlysy 2018
 //
 // Model is:
 //
@@ -18,7 +18,7 @@
 ////////////////////////////////////////////////////////////
 
 functions {
-  #include "PK1_DE_Functions.stan"
+  #include "/include/PK1_DE_Functions.stan"
 }
 
 data {
@@ -37,7 +37,7 @@ transformed data {
 
   for (jj in 1:(nObs-1)) {
     for(ii in 1:nSub) {
-      dt[ii,jj] <- t[ii,jj+1]-t[ii,jj];
+      dt[ii,jj] = t[ii,jj+1]-t[ii,jj];
     }
   }
 }
@@ -65,7 +65,7 @@ parameters {
 transformed parameters {
   real Xt[nSub, nObs]; // concentrations
   for(ii in 1:nSub) {
-    Xt[ii] <- to_array_1d(PK1_ODE(D[ii], Cl[ii], Ka[ii], Ke[ii], t[ii]));
+    Xt[ii] = to_array_1d(PK1_ODE(D[ii], Cl[ii], Ka[ii], Ke[ii], t[ii]));
   }
 }
 

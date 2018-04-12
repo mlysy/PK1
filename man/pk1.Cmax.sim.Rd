@@ -30,4 +30,3 @@ Simulation of maximal concentration for the PK1 model.
 \details{
 Generates a concentration curve at specified timepoints, and records the maximal concentration value along with the time when it happens.
 }
-

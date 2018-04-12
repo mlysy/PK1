@@ -3,8 +3,6 @@
 
 using namespace Rcpp;
 
-// [[Rcpp::interfaces(r,cpp)]]
-
 // time-varying 1st-order linear filter.
 void filter1_TV(double* y, double y0, double* x, double* rho, int N) {
   y[0] = y0;

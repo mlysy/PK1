@@ -16,4 +16,3 @@ Mean and Variance of a Generalized AR(1) Process
 The GAR(1) process is given by
 \deqn{x[n] = a[n] * x[n-1] + b[n] + c[n] * e[n], \qquad e[n] ~iid N(0,1)}.
 }
-

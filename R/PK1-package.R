@@ -7,6 +7,7 @@
 #' where \code{Bt} is Brownian motion.  When \code{gamma = 0} the SDE above reduces to an Ordinary Differential Equation (ODE).
 #' @docType package
 #' @name PK1
-#' @importFrom Rcpp evalCpp
-#' @useDynLib PK1
+#' @import Rcpp
+#' @import methods
+#' @useDynLib PK1, .registration = TRUE
 NULL

@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////
 //
 // Inference for the 1-compartment PK model
-// krai, jdubin, mlysy 2015
+// mlysy 2018
 //
 // Model is:
 //
@@ -34,12 +34,12 @@ transformed data {
 
   for (jj in 1:(nObs-1)) {
     for(ii in 1:nSub) {
-      dt[ii,jj] <- t[ii,jj+1]-t[ii,jj];
-      Xt[ii,jj] <- Yt[ii,jj];
+      dt[ii,jj] = t[ii,jj+1]-t[ii,jj];
+      Xt[ii,jj] = Yt[ii,jj];
     }
   }
   for(ii in 1:nSub) {
-    Xt[ii,nObs] <- Yt[ii,nObs];
+    Xt[ii,nObs] = Yt[ii,nObs];
   }
 }
 
@@ -88,11 +88,11 @@ model {
   // Likelihood
   // concentrations
   for(ii in 1:nSub) {
-    R <- Ke[ii]*Ka[ii]*D[ii]/Cl[ii]/(Ke[ii]-Ka[ii]);
+    R = Ke[ii]*Ka[ii]*D[ii]/Cl[ii]/(Ke[ii]-Ka[ii]);
     for(jj in 1:(nObs-1)) {
-      rho <- exp(-Ke[ii] * dt[ii,jj]);
-      lambda <- R * exp(-Ka[ii] * t[ii,jj]) * (exp(-Ka[ii] * dt[ii,jj]) - rho);
-      tau <- sigmaP*sqrt((1-rho^2)/(2.0*Ke[ii]));
+      rho = exp(-Ke[ii] * dt[ii,jj]);
+      lambda = R * exp(-Ka[ii] * t[ii,jj]) * (exp(-Ka[ii] * dt[ii,jj]) - rho);
+      tau = sigmaP*sqrt((1-rho^2)/(2.0*Ke[ii]));
       Xt[ii,jj+1] ~ normal(rho * Xt[ii,jj] + lambda, tau);
     }
   }

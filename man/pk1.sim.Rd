@@ -30,4 +30,3 @@ Simulation of one-compartment PK model with unequal sampling times.
 \details{
 Each of \code{X0}, \code{Dose}, \code{Ke}, \code{Ka}, \code{Cl}, and \code{sigmaP} can be scalars or vectors.  In case of the latter, a concentration curve is returned for each value.
 }
-

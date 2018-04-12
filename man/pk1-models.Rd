@@ -3,12 +3,12 @@
 \docType{data}
 \name{pk1-models}
 \alias{pk1-models}
-\alias{pk1.fixed.ode.noise}
-\alias{pk1.fixed.sde.noise}
-\alias{pk1.fixed.sde.pure}
-\alias{pk1.mixed.ode.noise}
 \alias{pk1.mixed.sde.noise}
 \alias{pk1.mixed.sde.pure}
+\alias{pk1.mixed.ode.noise}
+\alias{pk1.fixed.ode.noise}
+\alias{pk1.fixed.sde.pure}
+\alias{pk1.fixed.sde.noise}
 \title{Variations on the One-Compartment Pharmacokinetic (PK1) Model.}
 \format{An object of class \code{stanmodel} of length 1.}
 \usage{
@@ -29,8 +29,8 @@ Stan implementations of the PK1 model, with ODE or SDE formulation, fixed or mix
 }
 \details{
 Each of these objects are of class \code{stanmodel}, such that parameter inference via MCMC can be done with the \code{rstan} package, e.g., with the call
-
-\code{sampling(object = stanmodel, iter = 1e4, chains = 1)}
+\preformatted{
+sampling(object = stanmodel, iter = 1e4, chains = 1)
+}
 }
 \keyword{datasets}
-

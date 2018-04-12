@@ -29,4 +29,3 @@ If \code{yObs} is not missing, loglikelihood.  Otherwise, list with elements \co
 \description{
 Calculates the loglikelihood for different formulations of the fixed-effects PK1 model, i.e., as an SDE or ODE, and with or without measurement error.
 }
-

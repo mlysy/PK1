@@ -11,4 +11,3 @@ pk1.init(descr = NULL, effect = c("Fixed", "Mixed", "Indep"),
 \description{
 Initialize the stan sampler
 }
-

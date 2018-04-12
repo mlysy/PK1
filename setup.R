@@ -9,7 +9,7 @@ pkg.name <- "PK1"
 # save.stan <- TRUE # uncomment this the first time
 compileAttributes()
 document()
-install()
+devtools::install()
 
 #--- create package folder (one-time only) --------------------------------------
 

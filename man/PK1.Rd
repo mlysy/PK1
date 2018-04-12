@@ -15,4 +15,3 @@ The Stochastic Differential Equation (SDE) representing the One-Compartment Phar
 
 where \code{Bt} is Brownian motion.  When \code{gamma = 0} the SDE above reduces to an Ordinary Differential Equation (ODE).
 }
-
