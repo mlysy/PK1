@@ -9,5 +9,6 @@
 #' @name PK1
 #' @import Rcpp
 #' @import methods
+#' @import rstan
 #' @useDynLib PK1, .registration = TRUE
 NULL

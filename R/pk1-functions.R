@@ -104,12 +104,34 @@ pk1.loglik <- function(Cl, Ka, Ke, sigmaP, sigmaM, yObs, tObs, Dose) {
     V <- diag(rep(sigmaM^2, len = nObs))
   }
   if(!missing(yObs)) {
-    out <- dmNorm(x = yObs, mu = mu, V = V, log = TRUE)
+    out <- .lmvn(x = yObs- mu, Sigma = V)
   } else {
     out <- list(mu = mu, V = V)
   }
   out
 }
+
+# log-pdf for a single observation x ~ N(0, Sigma)
+.lmvn <- function(x, Sigma) {
+  if(length(x) == 0) return(0)
+  l2pi <- 1.837877066409345483560659472811 # log(2*pi)
+  iV <- .solveV(Sigma, x, ldV = TRUE)
+  -.5 * (crossprod(x, iV$y)[1] + iV$ldV + length(x) * l2pi)
+}
+
+# solve method for variance matrices
+# optionally computes log determinant as well
+.solveV <- function(V, x, ldV = FALSE) {
+  C <- chol(V)
+  if(missing(x)) x <- diag(nrow(V))
+  ans <- backsolve(r = C, x = backsolve(r = C, x = x, transpose = TRUE))
+  if(ldV) {
+    ldV <- 2 * sum(log(diag(C)))
+    ans <- list(y = ans, ldV = ldV)
+  }
+  ans
+}
+
 
 #' Initialize the stan sampler
 #'
