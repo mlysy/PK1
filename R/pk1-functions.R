@@ -10,7 +10,7 @@
 #' @return Concentration matrix of size \code{nReps x nObs}, where \code{nObs = length(tObs)} and \code{nReps} is determined by the length of the other inputs.
 #' @details Each of \code{X0}, \code{Dose}, \code{Ke}, \code{Ka}, \code{Cl}, and \code{sigmaP} can be scalars or vectors.  In case of the latter, a concentration curve is returned for each value.
 #' @export
-pk1.sim <- function(tObs, X0, Dose, Ke, Ka, Cl, sigmaP, debug= FALSE) {
+pk1.sim <- function(tObs, X0, Dose, Ke, Ka, Cl, sigmaP) {
   nObs <- length(tObs)
   # determine nReps
   ln <- c(length(X0), length(Dose), length(Ke),
@@ -24,7 +24,6 @@ pk1.sim <- function(tObs, X0, Dose, Ke, Ka, Cl, sigmaP, debug= FALSE) {
   Ke <- rep(Ke, len = nReps)
   Ka <- rep(Ka, len = nReps)
   sigmaP <- rep(sigmaP, len = nReps)
-  if(debug) browser()
   Xt <- .PK1_Sim(nReps = nReps, X0 = X0, Dose = Dose, tObs = tObs,
                  Cl = Cl, Ka = Ka, Ke = Ke, sigmaP = sigmaP)
   t(Xt)
@@ -74,8 +73,7 @@ pk1.Cmax.sim <- function(tObs, X0, Dose, Ke, Ka, Cl, sigmaP) {
 #' @param sigmaM Standard deviation of measurment error.
 #' @inheritParams pk1.sim
 #' @export
-pk1.loglik <- function(Cl, Ka, Ke, sigmaP, sigmaM, yObs, tObs, Dose,
-                       debug = FALSE) {
+pk1.loglik <- function(Cl, Ka, Ke, sigmaP, sigmaM, yObs, tObs, Dose) {
   if(missing(sigmaP)) sigmaP <- 0
   if(missing(sigmaM)) sigmaM <- 0
   if((sigmaP == 0) && (sigmaM == 0)) {
@@ -91,7 +89,6 @@ pk1.loglik <- function(Cl, Ka, Ke, sigmaP, sigmaM, yObs, tObs, Dose,
     sigma <- sigmaP*sqrt((1-rho^2)/(2*Ke))
     MV <- gAR1.MV(aa = rho, bb = lambda, cc = sigma)
     # add initial value
-    if(debug) browser()
     mu <- c(0, MV$b)
     tau <- sigmaP^2/(2*Ke)
     B <- tau * MV$A
@@ -120,7 +117,7 @@ pk1.loglik <- function(Cl, Ka, Ke, sigmaP, sigmaM, yObs, tObs, Dose,
 pk1.init <- function(descr = NULL, effect = c("Fixed", "Mixed", "Indep"),
                      DE = c("SDE", "ODE"), meas = c("Pure", "Noise"),
                      Cl, Ka, Ke, sigmaP, sigmaM, muCl, muKa, muKe,
-                     sdCl, sdKa, sdKe, Xt) {
+                     sigCl, sigKa, sigKe, Xt) {
   if(!is.null(descr)) {
     effect <- descr["effect"]
     DE <- descr["DE"]
@@ -140,7 +137,7 @@ pk1.init <- function(descr = NULL, effect = c("Fixed", "Mixed", "Indep"),
     if(effect == "Mixed") {
       init <- c(init,
                 muCl = muCl, muKa = muKa, muKe = muKe,
-                sdCl = sigCl, sdKa = sigKa, sdKe = sigKe)
+                sigCl = sigCl, sigKa = sigKa, sigKe = sigKe)
     }
   }
   if(DE == "SDE") {
@@ -151,39 +148,39 @@ pk1.init <- function(descr = NULL, effect = c("Fixed", "Mixed", "Indep"),
 
 #--- depreciated ----------------------------------------------------------------
 
-if(FALSE) {
-pk1.sim <- function(tObs, X0, Dose, Ke, Ka, Cl, sigmaP, z) {
-  nObs <- length(tObs)
-  dt <- diff(tObs)
-  R <- Ka*Dose/Cl
-  rho <- exp(-Ke * dt)
-  lambda <- Ke*R*exp(-Ka*tObs[-nObs])*(exp(-Ka * dt) - rho)/(Ke-Ka)
-  sigma <- sigmaP*sqrt((1-rho^2)/(2*Ke))
-  # for-loop in C++
-  #Xt <- rep(NA, nObs)
-  #Xt[1] <- X0
-  #eps <- rnorm(nObs-1)
-  #for(jj in 1:(nObs-1)) {
-  #  Xt[jj+1] <- rho[jj] * Xt[jj] + lambda[jj] + sigma[jj] * eps[jj]
-  #}
-  #Xt
-  if(missing(z)) z <- rnorm(nObs-1)
-  filter1.tv(rho = rho, x = lambda + sigma*z, y0 = X0)
-}
-if(!exists("pk1.compile") || pk1.compile) {
-  message("--- COMPILING STAN CODE ---")
-  pk1.mixed.sde.noise <- stan_model(file = file.path("inst", "stan",
-                                      "PK1_Mixed_SDE_Noise.stan"))
-  pk1.mixed.sde.pure <- stan_model(file = file.path("inst", "stan",
-                                     "PK1_Mixed_SDE_Pure.stan"))
-  pk1.mixed.ode.noise <- stan_model(file = file.path("inst", "stan",
-                                      "PK1_Mixed_ODE_Noise.stan"))
-  pk1.fixed.ode.noise <- stan_model(file = file.path("inst", "stan",
-                                      "PK1_Fixed_ODE_Noise.stan"))
-  pk1.fixed.sde.pure <- stan_model(file = file.path("inst", "stan",
-                                     "PK1_Fixed_SDE_Pure.stan"))
-  pk1.fixed.sde.noise <- stan_model(file = file.path("inst", "stan",
-                                      "PK1_Fixed_SDE_Noise.stan"))
-  message("---------- DONE -----------")
-}
-}
+## if(FALSE) {
+## pk1.sim <- function(tObs, X0, Dose, Ke, Ka, Cl, sigmaP, z) {
+##   nObs <- length(tObs)
+##   dt <- diff(tObs)
+##   R <- Ka*Dose/Cl
+##   rho <- exp(-Ke * dt)
+##   lambda <- Ke*R*exp(-Ka*tObs[-nObs])*(exp(-Ka * dt) - rho)/(Ke-Ka)
+##   sigma <- sigmaP*sqrt((1-rho^2)/(2*Ke))
+##   # for-loop in C++
+##   #Xt <- rep(NA, nObs)
+##   #Xt[1] <- X0
+##   #eps <- rnorm(nObs-1)
+##   #for(jj in 1:(nObs-1)) {
+##   #  Xt[jj+1] <- rho[jj] * Xt[jj] + lambda[jj] + sigma[jj] * eps[jj]
+##   #}
+##   #Xt
+##   if(missing(z)) z <- rnorm(nObs-1)
+##   filter1.tv(rho = rho, x = lambda + sigma*z, y0 = X0)
+## }
+## if(!exists("pk1.compile") || pk1.compile) {
+##   message("--- COMPILING STAN CODE ---")
+##   pk1.mixed.sde.noise <- stan_model(file = file.path("inst", "stan",
+##                                       "PK1_Mixed_SDE_Noise.stan"))
+##   pk1.mixed.sde.pure <- stan_model(file = file.path("inst", "stan",
+##                                      "PK1_Mixed_SDE_Pure.stan"))
+##   pk1.mixed.ode.noise <- stan_model(file = file.path("inst", "stan",
+##                                       "PK1_Mixed_ODE_Noise.stan"))
+##   pk1.fixed.ode.noise <- stan_model(file = file.path("inst", "stan",
+##                                       "PK1_Fixed_ODE_Noise.stan"))
+##   pk1.fixed.sde.pure <- stan_model(file = file.path("inst", "stan",
+##                                      "PK1_Fixed_SDE_Pure.stan"))
+##   pk1.fixed.sde.noise <- stan_model(file = file.path("inst", "stan",
+##                                       "PK1_Fixed_SDE_Noise.stan"))
+##   message("---------- DONE -----------")
+## }
+## }

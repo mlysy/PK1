@@ -10,15 +10,16 @@ Description: Simulation and inference for the PK1 model featuring
         Fixed/Mixed effects, SDE/ODE implementations, and potentially
         include measurement error.
 License: GPL-3
-Depends: rstan (>= 2.17.3), R (>= 3.3.0), Rcpp (>= 0.12.16), methods
-Imports: Rcpp (>= 0.12.6), rstantools (>= 1.4.0), methods, rstan (>= 2.17.3)
+Depends: R (>= 3.3.0), rstan(>= 2.17.3)
+Imports: Rcpp (>= 0.12.6), methods
 LinkingTo: StanHeaders (>= 2.17.2), rstan (>= 2.17.3), BH (>= 1.66.0.1), Rcpp (>= 0.12.16), RcppEigen (>= 0.3.3.4.0)
 LazyLoad: true
 RoxygenNote: 6.0.1
-Collate: 
+Collate:
     'PK1-package.R'
     'RcppExports.R'
     'gAR1.R'
     'pk1-functions.R'
     'stanmodels.R'
     'pk1-models.R'
+Suggests: testthat

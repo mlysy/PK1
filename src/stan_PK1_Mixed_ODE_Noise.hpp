@@ -495,43 +495,43 @@ public:
             throw std::runtime_error(std::string("Error transforming variable muKe: ") + e.what());
         }
 
-        if (!(context__.contains_r("sdCl")))
-            throw std::runtime_error("variable sdCl missing");
-        vals_r__ = context__.vals_r("sdCl");
+        if (!(context__.contains_r("sigCl")))
+            throw std::runtime_error("variable sigCl missing");
+        vals_r__ = context__.vals_r("sigCl");
         pos__ = 0U;
-        context__.validate_dims("initialization", "sdCl", "double", context__.to_vec());
-        double sdCl(0);
-        sdCl = vals_r__[pos__++];
+        context__.validate_dims("initialization", "sigCl", "double", context__.to_vec());
+        double sigCl(0);
+        sigCl = vals_r__[pos__++];
         try {
-            writer__.scalar_lb_unconstrain(0,sdCl);
+            writer__.scalar_lb_unconstrain(0,sigCl);
         } catch (const std::exception& e) { 
-            throw std::runtime_error(std::string("Error transforming variable sdCl: ") + e.what());
+            throw std::runtime_error(std::string("Error transforming variable sigCl: ") + e.what());
         }
 
-        if (!(context__.contains_r("sdKa")))
-            throw std::runtime_error("variable sdKa missing");
-        vals_r__ = context__.vals_r("sdKa");
+        if (!(context__.contains_r("sigKa")))
+            throw std::runtime_error("variable sigKa missing");
+        vals_r__ = context__.vals_r("sigKa");
         pos__ = 0U;
-        context__.validate_dims("initialization", "sdKa", "double", context__.to_vec());
-        double sdKa(0);
-        sdKa = vals_r__[pos__++];
+        context__.validate_dims("initialization", "sigKa", "double", context__.to_vec());
+        double sigKa(0);
+        sigKa = vals_r__[pos__++];
         try {
-            writer__.scalar_lb_unconstrain(0,sdKa);
+            writer__.scalar_lb_unconstrain(0,sigKa);
         } catch (const std::exception& e) { 
-            throw std::runtime_error(std::string("Error transforming variable sdKa: ") + e.what());
+            throw std::runtime_error(std::string("Error transforming variable sigKa: ") + e.what());
         }
 
-        if (!(context__.contains_r("sdKe")))
-            throw std::runtime_error("variable sdKe missing");
-        vals_r__ = context__.vals_r("sdKe");
+        if (!(context__.contains_r("sigKe")))
+            throw std::runtime_error("variable sigKe missing");
+        vals_r__ = context__.vals_r("sigKe");
         pos__ = 0U;
-        context__.validate_dims("initialization", "sdKe", "double", context__.to_vec());
-        double sdKe(0);
-        sdKe = vals_r__[pos__++];
+        context__.validate_dims("initialization", "sigKe", "double", context__.to_vec());
+        double sigKe(0);
+        sigKe = vals_r__[pos__++];
         try {
-            writer__.scalar_lb_unconstrain(0,sdKe);
+            writer__.scalar_lb_unconstrain(0,sigKe);
         } catch (const std::exception& e) { 
-            throw std::runtime_error(std::string("Error transforming variable sdKe: ") + e.what());
+            throw std::runtime_error(std::string("Error transforming variable sigKe: ") + e.what());
         }
 
         params_r__ = writer__.data_r();
@@ -623,26 +623,26 @@ public:
             else
                 muKe = in__.scalar_constrain();
 
-            T__ sdCl;
-            (void) sdCl;  // dummy to suppress unused var warning
+            T__ sigCl;
+            (void) sigCl;  // dummy to suppress unused var warning
             if (jacobian__)
-                sdCl = in__.scalar_lb_constrain(0,lp__);
+                sigCl = in__.scalar_lb_constrain(0,lp__);
             else
-                sdCl = in__.scalar_lb_constrain(0);
+                sigCl = in__.scalar_lb_constrain(0);
 
-            T__ sdKa;
-            (void) sdKa;  // dummy to suppress unused var warning
+            T__ sigKa;
+            (void) sigKa;  // dummy to suppress unused var warning
             if (jacobian__)
-                sdKa = in__.scalar_lb_constrain(0,lp__);
+                sigKa = in__.scalar_lb_constrain(0,lp__);
             else
-                sdKa = in__.scalar_lb_constrain(0);
+                sigKa = in__.scalar_lb_constrain(0);
 
-            T__ sdKe;
-            (void) sdKe;  // dummy to suppress unused var warning
+            T__ sigKe;
+            (void) sigKe;  // dummy to suppress unused var warning
             if (jacobian__)
-                sdKe = in__.scalar_lb_constrain(0,lp__);
+                sigKe = in__.scalar_lb_constrain(0,lp__);
             else
-                sdKe = in__.scalar_lb_constrain(0);
+                sigKe = in__.scalar_lb_constrain(0);
 
 
             // transformed parameters
@@ -685,17 +685,17 @@ public:
             current_statement_begin__ = 105;
             lp_accum__.add(normal_log<propto__>(muKe, 0, sdDef));
             current_statement_begin__ = 106;
-            lp_accum__.add(lognormal_log<propto__>(sdCl, 0, sdDef));
+            lp_accum__.add(lognormal_log<propto__>(sigCl, 0, sdDef));
             current_statement_begin__ = 107;
-            lp_accum__.add(lognormal_log<propto__>(sdKa, 0, sdDef));
+            lp_accum__.add(lognormal_log<propto__>(sigKa, 0, sdDef));
             current_statement_begin__ = 108;
-            lp_accum__.add(lognormal_log<propto__>(sdKe, 0, sdDef));
+            lp_accum__.add(lognormal_log<propto__>(sigKe, 0, sdDef));
             current_statement_begin__ = 111;
-            lp_accum__.add(lognormal_log<propto__>(Cl, muCl, sdCl));
+            lp_accum__.add(lognormal_log<propto__>(Cl, muCl, sigCl));
             current_statement_begin__ = 112;
-            lp_accum__.add(lognormal_log<propto__>(Ka, muKa, sdKa));
+            lp_accum__.add(lognormal_log<propto__>(Ka, muKa, sigKa));
             current_statement_begin__ = 113;
-            lp_accum__.add(lognormal_log<propto__>(Ke, muKe, sdKe));
+            lp_accum__.add(lognormal_log<propto__>(Ke, muKe, sigKe));
             current_statement_begin__ = 114;
             lp_accum__.add(lognormal_log<propto__>(sigmaM, 0, sdDef));
             current_statement_begin__ = 118;
@@ -733,9 +733,9 @@ public:
         names__.push_back("muCl");
         names__.push_back("muKa");
         names__.push_back("muKe");
-        names__.push_back("sdCl");
-        names__.push_back("sdKa");
-        names__.push_back("sdKe");
+        names__.push_back("sigCl");
+        names__.push_back("sigKa");
+        names__.push_back("sigKe");
         names__.push_back("Xt");
     }
 
@@ -804,9 +804,9 @@ public:
         double muCl = in__.scalar_constrain();
         double muKa = in__.scalar_constrain();
         double muKe = in__.scalar_constrain();
-        double sdCl = in__.scalar_lb_constrain(0);
-        double sdKa = in__.scalar_lb_constrain(0);
-        double sdKe = in__.scalar_lb_constrain(0);
+        double sigCl = in__.scalar_lb_constrain(0);
+        double sigKa = in__.scalar_lb_constrain(0);
+        double sigKe = in__.scalar_lb_constrain(0);
             for (int k_0__ = 0; k_0__ < nSub; ++k_0__) {
             vars__.push_back(Cl[k_0__]);
             }
@@ -820,9 +820,9 @@ public:
         vars__.push_back(muCl);
         vars__.push_back(muKa);
         vars__.push_back(muKe);
-        vars__.push_back(sdCl);
-        vars__.push_back(sdKa);
-        vars__.push_back(sdKe);
+        vars__.push_back(sigCl);
+        vars__.push_back(sigKa);
+        vars__.push_back(sigKe);
 
         if (!include_tparams__) return;
         // declare and define transformed parameters
@@ -929,13 +929,13 @@ public:
         param_name_stream__ << "muKe";
         param_names__.push_back(param_name_stream__.str());
         param_name_stream__.str(std::string());
-        param_name_stream__ << "sdCl";
+        param_name_stream__ << "sigCl";
         param_names__.push_back(param_name_stream__.str());
         param_name_stream__.str(std::string());
-        param_name_stream__ << "sdKa";
+        param_name_stream__ << "sigKa";
         param_names__.push_back(param_name_stream__.str());
         param_name_stream__.str(std::string());
-        param_name_stream__ << "sdKe";
+        param_name_stream__ << "sigKe";
         param_names__.push_back(param_name_stream__.str());
 
         if (!include_gqs__ && !include_tparams__) return;
@@ -983,13 +983,13 @@ public:
         param_name_stream__ << "muKe";
         param_names__.push_back(param_name_stream__.str());
         param_name_stream__.str(std::string());
-        param_name_stream__ << "sdCl";
+        param_name_stream__ << "sigCl";
         param_names__.push_back(param_name_stream__.str());
         param_name_stream__.str(std::string());
-        param_name_stream__ << "sdKa";
+        param_name_stream__ << "sigKa";
         param_names__.push_back(param_name_stream__.str());
         param_name_stream__.str(std::string());
-        param_name_stream__ << "sdKe";
+        param_name_stream__ << "sigKe";
         param_names__.push_back(param_name_stream__.str());
 
         if (!include_gqs__ && !include_tparams__) return;

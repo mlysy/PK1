@@ -24,11 +24,11 @@ pk1.sde.ldens <- function(Xt, tObs, Dose, Ke, Ka, Cl, sigmaP) {
 # just for debugging purposes
 pk1.logpost <- function(Cl, Ka, Ke, sigmaP, sigmaM,
                         muCl, muKa, muKe,
-                        sdCl, sdKa, sdKe,
+                        sigCl, sigKa, sigKe,
                         Xt, tObs, yObs, Dose, sdDef = 5, descr,
                         effect = c("Fixed", "Mixed", "Indep"),
-                        DE = c("ODE", "SDE"), meas = c("Pure", "Noise"),
-                        ..., debug = FALSE) {
+                        DE = c("ODE", "SDE"),
+                        meas = c("Pure", "Noise"), ...) {
   nSub <- nrow(yObs)
   nObs <- ncol(yObs)
   if(!missing(descr)) {
@@ -40,19 +40,18 @@ pk1.logpost <- function(Cl, Ka, Ke, sigmaP, sigmaM,
   DE <- match.arg(DE)
   meas <- match.arg(meas)
   lp <- 0
-  if(debug) browser()
   if(effect == "Mixed") {
     # hyperparameters
     lp <- lp + dnorm(muCl, 0, sdDef, log = TRUE)
     lp <- lp + dnorm(muKa, 0, sdDef, log = TRUE)
     lp <- lp + dnorm(muKe, 0, sdDef, log = TRUE)
-    lp <- lp + dlnorm(sdCl, 0, sdDef, log = TRUE) + log(sdCl)
-    lp <- lp + dlnorm(sdKa, 0, sdDef, log = TRUE) + log(sdKa)
-    lp <- lp + dlnorm(sdKe, 0, sdDef, log = TRUE) + log(sdKe)
+    lp <- lp + dlnorm(sigCl, 0, sdDef, log = TRUE) + log(sigCl)
+    lp <- lp + dlnorm(sigKa, 0, sdDef, log = TRUE) + log(sigKa)
+    lp <- lp + dlnorm(sigKe, 0, sdDef, log = TRUE) + log(sigKe)
     # parameters
-    lp <- lp + sum(dlnorm(Cl, muCl, sdCl, log = TRUE)) + sum(log(Cl))
-    lp <- lp + sum(dlnorm(Ka, muKa, sdKa, log = TRUE)) + sum(log(Ka))
-    lp <- lp + sum(dlnorm(Ke, muKe, sdKe, log = TRUE)) + sum(log(Ke))
+    lp <- lp + sum(dlnorm(Cl, muCl, sigCl, log = TRUE)) + sum(log(Cl))
+    lp <- lp + sum(dlnorm(Ka, muKa, sigKa, log = TRUE)) + sum(log(Ka))
+    lp <- lp + sum(dlnorm(Ke, muKe, sigKe, log = TRUE)) + sum(log(Ke))
   } else if(effect == "Fixed") {
     # parameters
     lp <- lp + dlnorm(Cl[1], 0, sdDef, log = TRUE) + log(Cl[1])
@@ -74,8 +73,8 @@ pk1.logpost <- function(Cl, Ka, Ke, sigmaP, sigmaM,
   } else if(DE == "ODE") {
     Xt <- matrix(0, nSub, nObs)
     for(ii in 1:nSub) {
-     Xt[ii,] <- pk1.sim(tObs = tObs[ii,], X0 = 0, Dose = Dose[ii],
-                        Ke = Ke[ii], Ka = Ka[ii], Cl = Cl[ii], sigmaP = 0)
+     Xt[ii,] <- PK1::pk1.sim(tObs = tObs[ii,], X0 = 0, Dose = Dose[ii],
+                             Ke = Ke[ii], Ka = Ka[ii], Cl = Cl[ii], sigmaP = 0)
     }
   }
   if(meas == "Noise") {
@@ -100,7 +99,7 @@ pk1.format.pars <- function(pars, descr,
   par.names <- c("Cl", "Ka", "Ke")
   if(effect == "Mixed") {
     par.names <- c(par.names,
-                   "muCl", "sdCl", "muKa", "sdKa", "muKe", "sdKe")
+                   "muCl", "sigCl", "muKa", "sigKa", "muKe", "sigKe")
   }
   if(DE == "SDE") {
     par.names <- c(par.names, "sigmaP")

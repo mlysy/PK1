@@ -4,7 +4,7 @@
 \alias{pk1.sim}
 \title{Simulation of one-compartment PK model with unequal sampling times.}
 \usage{
-pk1.sim(tObs, X0, Dose, Ke, Ka, Cl, sigmaP, debug = FALSE)
+pk1.sim(tObs, X0, Dose, Ke, Ka, Cl, sigmaP)
 }
 \arguments{
 \item{tObs}{vector of observation times.}

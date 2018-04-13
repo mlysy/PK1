@@ -61,9 +61,9 @@ parameters {
   real muCl;
   real muKa;
   real muKe;
-  real<lower=0> sdCl;
-  real<lower=0> sdKa;
-  real<lower=0> sdKe;
+  real<lower=0> sigCl;
+  real<lower=0> sigKa;
+  real<lower=0> sigKe;
 
 }
 
@@ -73,14 +73,14 @@ model {
   muCl ~ normal(0, sdDef);
   muKa ~ normal(0, sdDef);
   muKe ~ normal(0, sdDef);
-  sdCl ~ lognormal(0, sdDef);
-  sdKa ~ lognormal(0, sdDef);
-  sdKe ~ lognormal(0, sdDef);
+  sigCl ~ lognormal(0, sdDef);
+  sigKa ~ lognormal(0, sdDef);
+  sigKe ~ lognormal(0, sdDef);
 
   // Priors
-  Cl ~ lognormal(muCl, sdCl);
-  Ka ~ lognormal(muKa, sdKa);
-  Ke ~ lognormal(muKe, sdKe);
+  Cl ~ lognormal(muCl, sigCl);
+  Ka ~ lognormal(muKa, sigKa);
+  Ke ~ lognormal(muKe, sigKe);
   sigmaP ~ lognormal(0, sdDef);
 
   // Likelihood

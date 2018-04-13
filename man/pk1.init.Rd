@@ -6,7 +6,7 @@
 \usage{
 pk1.init(descr = NULL, effect = c("Fixed", "Mixed", "Indep"),
   DE = c("SDE", "ODE"), meas = c("Pure", "Noise"), Cl, Ka, Ke, sigmaP,
-  sigmaM, muCl, muKa, muKe, sdCl, sdKa, sdKe, Xt)
+  sigmaM, muCl, muKa, muKe, sigCl, sigKa, sigKe, Xt)
 }
 \description{
 Initialize the stan sampler

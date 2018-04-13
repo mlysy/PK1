@@ -4,7 +4,7 @@
 \alias{pk1.loglik}
 \title{Loglikelihood of the PK1 Model}
 \usage{
-pk1.loglik(Cl, Ka, Ke, sigmaP, sigmaM, yObs, tObs, Dose, debug = FALSE)
+pk1.loglik(Cl, Ka, Ke, sigmaP, sigmaM, yObs, tObs, Dose)
 }
 \arguments{
 \item{Cl}{Clearance level.}
