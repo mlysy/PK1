@@ -2,7 +2,7 @@
 
 #include <Rcpp.h>
 using namespace Rcpp ;
-#include "stan_PK1_Mixed_ODE_Noise.hpp"
+#include "stan_PK1_Mixed_ODE_Noise.h"
 
 RCPP_MODULE(stan_fit4PK1_Mixed_ODE_Noise_mod) {
 

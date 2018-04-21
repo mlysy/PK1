@@ -2,7 +2,7 @@
 
 #include <Rcpp.h>
 using namespace Rcpp ;
-#include "stan_PK1_Mixed_SDE_Pure.hpp"
+#include "stan_PK1_Mixed_SDE_Pure.h"
 
 RCPP_MODULE(stan_fit4PK1_Mixed_SDE_Pure_mod) {
 
