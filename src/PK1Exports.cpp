@@ -1,6 +1,15 @@
 #include <Rcpp.h>
-#include "Filter1_TV.h"
+#include "filterTV1.h"
 using namespace Rcpp;
+
+// [[Rcpp::export("filter1.tv")]]
+NumericVector FilterTV1(NumericVector rho, NumericVector x,
+			double y0 = 0) {
+  int N = x.length()+1;
+  NumericVector y(N);
+  filterTV1(&(y[0]), y0, &(x[0]), &(rho[0]), N);
+  return y;
+}
 
 //[[Rcpp::export(".PK1_Sim")]]
 NumericMatrix PK1_Sim(int nReps,
@@ -30,7 +39,7 @@ NumericMatrix PK1_Sim(int nReps,
     eps = rnorm(nObs-1);
     eps = sigmaP[ii] * sqrt((1-rho*rho)/(2*Ke[ii])) * eps;
     lambda = lambda + eps;
-    filter1_TV(&(Xt(0,ii)), X0[ii], &(lambda[0]), &(rho[0]), nObs);
+    filterTV1(&(Xt(0,ii)), X0[ii], &(lambda[0]), &(rho[0]), nObs);
   }
   return Xt;
 }
@@ -65,7 +74,7 @@ NumericMatrix PK1_Cmax_Sim(int nReps,
     eps = rnorm(nObs-1);
     eps = sigmaP[ii] * sqrt((1-rho*rho)/(2*Ke[ii])) * eps;
     lambda = lambda + eps;
-    filter1_TV(&(Xt[0]), X0[ii], &(lambda[0]), &(rho[0]), nObs);
+    filterTV1(&(Xt[0]), X0[ii], &(lambda[0]), &(rho[0]), nObs);
     tCmax = which_max(Xt);
     Cmax(ii,0) = Xt[tCmax];
     Cmax(ii,1) = tObs[tCmax];

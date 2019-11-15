@@ -2,12 +2,12 @@
 
 #include <Rcpp.h>
 using namespace Rcpp ;
-#include "stan_PK1_Fixed_SDE_Noise.h"
+#include "stanExports_PK1_Mixed_SDE_Pure.h"
 
-RCPP_MODULE(stan_fit4PK1_Fixed_SDE_Noise_mod) {
+RCPP_MODULE(stan_fit4PK1_Mixed_SDE_Pure_mod) {
 
 
-    class_<rstan::stan_fit<stan_model, boost::random::ecuyer1988> >("model_PK1_Fixed_SDE_Noise")
+    class_<rstan::stan_fit<stan_model, boost::random::ecuyer1988> >("model_PK1_Mixed_SDE_Pure")
 
     .constructor<SEXP,SEXP,SEXP>()
 

@@ -1,0 +1,5 @@
+^Meta$
+^doc$
+^README\.md$
+^LICENSE$
+^tests/dontrun$

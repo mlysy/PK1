@@ -1,0 +1,1 @@
+#' @param Ke Elimination rate.

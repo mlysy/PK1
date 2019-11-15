@@ -18,7 +18,7 @@
 ////////////////////////////////////////////////////////////
 
 functions {
-  #include "/include/PK1_DE_Functions.stan"
+#include /include/PK1_DE_Functions.stan
 }
 
 data {

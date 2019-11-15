@@ -18,7 +18,7 @@
 ////////////////////////////////////////////////////////////
 
 functions {
-  #include "/include/PK1_DE_Functions.stan"
+#include /include/PK1_DE_Functions.stan
 }
 
 data {
@@ -71,4 +71,5 @@ model {
   // Likelihood
   // measurements
   to_array_1d(Yt) ~ normal(to_array_1d(Xt), sigmaM);
+  // target += normal_lpdf(to_array_1d(Yt) | to_array_1d(Xt), sigmaM);
 }

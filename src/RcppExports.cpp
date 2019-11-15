@@ -6,16 +6,16 @@
 
 using namespace Rcpp;
 
-// Filter1_TV
-NumericVector Filter1_TV(NumericVector rho, NumericVector x, double y0);
-RcppExport SEXP _PK1_Filter1_TV(SEXP rhoSEXP, SEXP xSEXP, SEXP y0SEXP) {
+// FilterTV1
+NumericVector FilterTV1(NumericVector rho, NumericVector x, double y0);
+RcppExport SEXP _PK1_FilterTV1(SEXP rhoSEXP, SEXP xSEXP, SEXP y0SEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< NumericVector >::type rho(rhoSEXP);
     Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
     Rcpp::traits::input_parameter< double >::type y0(y0SEXP);
-    rcpp_result_gen = Rcpp::wrap(Filter1_TV(rho, x, y0));
+    rcpp_result_gen = Rcpp::wrap(FilterTV1(rho, x, y0));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -64,7 +64,7 @@ RcppExport SEXP _rcpp_module_boot_stan_fit4PK1_Mixed_SDE_Noise_mod();
 RcppExport SEXP _rcpp_module_boot_stan_fit4PK1_Mixed_SDE_Pure_mod();
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_PK1_Filter1_TV", (DL_FUNC) &_PK1_Filter1_TV, 3},
+    {"_PK1_FilterTV1", (DL_FUNC) &_PK1_FilterTV1, 3},
     {"_PK1_PK1_Sim", (DL_FUNC) &_PK1_PK1_Sim, 8},
     {"_PK1_PK1_Cmax_Sim", (DL_FUNC) &_PK1_PK1_Cmax_Sim, 8},
     {"_rcpp_module_boot_stan_fit4PK1_Fixed_ODE_Noise_mod", (DL_FUNC) &_rcpp_module_boot_stan_fit4PK1_Fixed_ODE_Noise_mod, 0},

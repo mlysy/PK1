@@ -4,15 +4,26 @@
 \alias{gAR1.MV}
 \title{Mean and Variance of a Generalized AR(1) Process}
 \usage{
-gAR1.MV(aa, bb, cc, x0, debug = FALSE)
+gAR1.MV(aa, bb, cc, x0)
+}
+\arguments{
+\item{aa}{Scalar or vector mean-reversion parameter (see Details).}
+
+\item{bb}{Scalar or vector offset parameter (see Details).}
+
+\item{cc}{Scalar or vector noise standard deviation parameter (see Details).}
+
+\item{x0}{Scalar initial value.}
 }
 \value{
-A list with elements \code{mu} and \code{V} if \code{x0} is given.  Otherwise, a list with elements \code{A}, \code{b} and \code{V}, where \code{mu = A x0 + b}.
+A list with elements \code{mu} and \code{V} if \code{x0} is given.  Otherwise, a list with elements \code{A}, \code{b} and \code{V}, where \code{mu = A x0 + b}.  The sizes of \code{mu} and \code{V} are \code{N = max(length(aa), length(bb), length(cc))}.
 }
 \description{
 Mean and Variance of a Generalized AR(1) Process
 }
 \details{
 The GAR(1) process is given by
-\deqn{x[n] = a[n] * x[n-1] + b[n] + c[n] * e[n], \qquad e[n] ~iid N(0,1)}.
+\preformatted{
+x[n] = aa[n] * x[n-1] + bb[n] + cc[n] * e[n],   e[n] ~iid N(0,1).
+}
 }

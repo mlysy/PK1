@@ -2,7 +2,7 @@
 
 #include <Rcpp.h>
 using namespace Rcpp ;
-#include "stan_PK1_Fixed_ODE_Noise.h"
+#include "stanExports_PK1_Fixed_ODE_Noise.h"
 
 RCPP_MODULE(stan_fit4PK1_Fixed_ODE_Noise_mod) {
 

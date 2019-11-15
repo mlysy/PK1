@@ -2,14 +2,14 @@
 % Please edit documentation in R/pk1-functions.R
 \name{pk1.sim}
 \alias{pk1.sim}
-\title{Simulation of one-compartment PK model with unequal sampling times.}
+\title{Simulation of the PK1 SDE model with unequal sampling times.}
 \usage{
 pk1.sim(tObs, X0, Dose, Ke, Ka, Cl, sigmaP)
 }
 \arguments{
-\item{tObs}{vector of observation times.}
+\item{tObs}{Vector of observation times.}
 
-\item{X0}{Initial concentration (at time tObs[1]).}
+\item{X0}{Initial concentration (at time \code{tObs[1]}).}
 
 \item{Dose}{Administered drug dosage.}
 
@@ -19,13 +19,13 @@ pk1.sim(tObs, X0, Dose, Ke, Ka, Cl, sigmaP)
 
 \item{Cl}{Clearance level.}
 
-\item{sigmaP}{Brownian force scaling.  \code{sigmaP = 0} solve the ODE instead.}
+\item{sigmaP}{Brownian force scaling.  \code{sigmaP = 0} reduces to the corresponding ODE.}
 }
 \value{
 Concentration matrix of size \code{nReps x nObs}, where \code{nObs = length(tObs)} and \code{nReps} is determined by the length of the other inputs.
 }
 \description{
-Simulation of one-compartment PK model with unequal sampling times.
+Simulation of the PK1 SDE model with unequal sampling times.
 }
 \details{
 Each of \code{X0}, \code{Dose}, \code{Ke}, \code{Ka}, \code{Cl}, and \code{sigmaP} can be scalars or vectors.  In case of the latter, a concentration curve is returned for each value.

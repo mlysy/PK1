@@ -1,12 +1,12 @@
-#' Simulation of one-compartment PK model with unequal sampling times.
+#' Simulation of the PK1 SDE model with unequal sampling times.
 #'
-#' @param tObs vector of observation times.
-#' @param X0 Initial concentration (at time tObs[1]).
-#' @param Dose Administered drug dosage.
-#' @param Ke Elimination rate.
-#' @param Ka Absorption rate.
-#' @param Cl Clearance level.
-#' @param sigmaP Brownian force scaling.  \code{sigmaP = 0} solve the ODE instead.
+#' @template param-tObs
+#' @template param-X0
+#' @template param-Dose
+#' @template param-Ke
+#' @template param-Ka
+#' @template param-Cl
+#' @template param-sigmaP
 #' @return Concentration matrix of size \code{nReps x nObs}, where \code{nObs = length(tObs)} and \code{nReps} is determined by the length of the other inputs.
 #' @details Each of \code{X0}, \code{Dose}, \code{Ke}, \code{Ka}, \code{Cl}, and \code{sigmaP} can be scalars or vectors.  In case of the latter, a concentration curve is returned for each value.
 #' @export
@@ -29,9 +29,11 @@ pk1.sim <- function(tObs, X0, Dose, Ke, Ka, Cl, sigmaP) {
   t(Xt)
 }
 
-#' PK1 ODE Solution
+#' Solution of the PK1 ODE model.
 #'
 #' @inheritParams pk1.sim
+#' @details The initial concentration (at time \code{t = 0}) is assumed to be \code{X0 = 0}.
+#' @return Solution vector at times \code{tObs}.
 #' @export
 pk1.ode <- function(tObs, Dose, Cl, Ka, Ke) {
   R <- Dose * Ka*Ke / Cl / (Ke - Ka)
@@ -66,7 +68,8 @@ pk1.Cmax.sim <- function(tObs, X0, Dose, Ke, Ka, Cl, sigmaP) {
 
 #' Loglikelihood of the PK1 Model
 #'
-#' @description Calculates the loglikelihood for different formulations of the fixed-effects PK1 model, i.e., as an SDE or ODE, and with or without measurement error.
+#' Calculates the loglikelihood for different formulations of the fixed-effects PK1 model, i.e., as an SDE or ODE, and with or without measurement error.
+#'
 #' @return If \code{yObs} is not missing, loglikelihood.  Otherwise, list with elements \code{mu} and \code{V} of \code{yObs}.
 #' @param yObs Vector of measurements.
 #' @param tObs Vector of observation times.

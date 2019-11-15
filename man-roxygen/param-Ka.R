@@ -1,0 +1,1 @@
+#' @param Ka Absorption rate.

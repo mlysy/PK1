@@ -22,7 +22,7 @@ real PK1_SDE_lpdf(real[] Xt, real Ka, real Ke, real Cl, real sigmaP,
     rho = exp(-Ke * dt[ii]);
     lambda = R * exp(-Ka * t[ii]) * (exp(-Ka * dt[ii]) - rho);
     tau = sigmaP * sqrt((1-rho^2)/(2.0*Ke));
-    ll = ll + normal_lpdf(Xt[ii+1] | rho * Xt[ii] + lambda, tau);
+    ll += normal_lpdf(Xt[ii+1] | rho * Xt[ii] + lambda, tau);
   }
   return ll;
 }

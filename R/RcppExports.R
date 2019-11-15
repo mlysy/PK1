@@ -2,7 +2,7 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 filter1.tv <- function(rho, x, y0 = 0) {
-    .Call(`_PK1_Filter1_TV`, rho, x, y0)
+    .Call(`_PK1_FilterTV1`, rho, x, y0)
 }
 
 .PK1_Sim <- function(nReps, X0, Dose, tObs, Cl, Ka, Ke, sigmaP) {

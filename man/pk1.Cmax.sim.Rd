@@ -7,9 +7,9 @@
 pk1.Cmax.sim(tObs, X0, Dose, Ke, Ka, Cl, sigmaP)
 }
 \arguments{
-\item{tObs}{vector of observation times.}
+\item{tObs}{Vector of observation times.}
 
-\item{X0}{Initial concentration (at time tObs[1]).}
+\item{X0}{Initial concentration (at time \code{tObs[1]}).}
 
 \item{Dose}{Administered drug dosage.}
 
@@ -19,7 +19,7 @@ pk1.Cmax.sim(tObs, X0, Dose, Ke, Ka, Cl, sigmaP)
 
 \item{Cl}{Clearance level.}
 
-\item{sigmaP}{Brownian force scaling.  \code{sigmaP = 0} solve the ODE instead.}
+\item{sigmaP}{Brownian force scaling.  \code{sigmaP = 0} reduces to the corresponding ODE.}
 }
 \value{
 A matrix with columns \code{Cmax} and \code{tCmax}.

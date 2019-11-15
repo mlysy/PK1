@@ -2,12 +2,12 @@
 % Please edit documentation in R/pk1-functions.R
 \name{pk1.ode}
 \alias{pk1.ode}
-\title{PK1 ODE Solution}
+\title{Solution of the PK1 ODE model.}
 \usage{
 pk1.ode(tObs, Dose, Cl, Ka, Ke)
 }
 \arguments{
-\item{tObs}{vector of observation times.}
+\item{tObs}{Vector of observation times.}
 
 \item{Dose}{Administered drug dosage.}
 
@@ -17,6 +17,12 @@ pk1.ode(tObs, Dose, Cl, Ka, Ke)
 
 \item{Ke}{Elimination rate.}
 }
+\value{
+Solution vector at times \code{tObs}.
+}
 \description{
-PK1 ODE Solution
+Solution of the PK1 ODE model.
+}
+\details{
+The initial concentration (at time \code{t = 0}) is assumed to be \code{X0 = 0}.
 }

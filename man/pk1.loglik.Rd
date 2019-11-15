@@ -13,7 +13,7 @@ pk1.loglik(Cl, Ka, Ke, sigmaP, sigmaM, yObs, tObs, Dose)
 
 \item{Ke}{Elimination rate.}
 
-\item{sigmaP}{Brownian force scaling.  \code{sigmaP = 0} solve the ODE instead.}
+\item{sigmaP}{Brownian force scaling.  \code{sigmaP = 0} reduces to the corresponding ODE.}
 
 \item{sigmaM}{Standard deviation of measurment error.}
 
