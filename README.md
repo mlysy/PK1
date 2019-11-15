@@ -15,7 +15,7 @@ if (!require("devtools")) {
 }
 
 # install the package itself
-devtools::install_github("mlysy/PK1", ref = "use_rstan")
+devtools::install_github("mlysy/PK1")
 
 # run unit tests
 if (!require("testthat")) {
